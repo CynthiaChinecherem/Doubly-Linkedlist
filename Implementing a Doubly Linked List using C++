@@ -1,0 +1,62 @@
+#include <iostream>
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+    
+    Node(int val) : data(val), prev(nullptr), next(nullptr) {}
+};
+
+class DoublyLinkedList {
+private:
+    Node* head;
+    Node* tail;
+
+public:
+    DoublyLinkedList() : head(nullptr), tail(nullptr) {}
+
+    void append(int val) {
+        Node* newNode = new Node(val);
+        if (head == nullptr) {
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+    }
+
+    void display() {
+        Node* current = head;
+        while (current != nullptr) {
+            std::cout << current->data << " ";
+            current = current->next;
+        }
+        std::cout << std::endl;
+    }
+
+    void displayReverse() {
+        Node* current = tail;
+        while (current != nullptr) {
+            std::cout << current->data << " ";
+            current = current->prev;
+        }
+        std::cout << std::endl;
+    }
+};
+
+int main() {
+    DoublyLinkedList dll;
+    dll.append(1);
+    dll.append(2);
+    dll.append(3);
+
+    std::cout << "Doubly Linked List:" << std::endl;
+    dll.display();
+
+    std::cout << "Doubly Linked List in reverse:" << std::endl;
+    dll.displayReverse();
+
+    return 0;
+}
